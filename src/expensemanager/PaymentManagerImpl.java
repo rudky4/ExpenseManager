@@ -1,4 +1,4 @@
-package paymentmanager;
+package expensemanager;
 
 import java.util.List;
 

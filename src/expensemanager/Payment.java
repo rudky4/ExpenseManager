@@ -1,4 +1,4 @@
-package paymentmanager;
+package expensemanager;
 
 import java.math.BigDecimal;
 import java.util.Date;
