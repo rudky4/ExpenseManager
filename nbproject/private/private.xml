@@ -3,15 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/workspace/ExpenseManager/src/expensemanager/ServiceFailureException.java</file>
-            <file>file:/D:/workspace/ExpenseManager/src/expensemanager/Account.java</file>
-            <file>file:/D:/workspace/ExpenseManager/src/expensemanager/PaymentManagerImpl.java</file>
-            <file>file:/D:/workspace/ExpenseManager/src/expensemanager/AccountManagerImpl.java</file>
-            <file>file:/D:/workspace/ExpenseManager/test/expensemanager/AccountManagerImplTest.java</file>
-            <file>file:/D:/workspace/ExpenseManager/test/expensemanager/PaymentManagerImplTest.java</file>
-            <file>file:/D:/workspace/ExpenseManager/src/expensemanager/AccountManager.java</file>
-            <file>file:/D:/workspace/ExpenseManager/src/expensemanager/PaymentManager.java</file>
-            <file>file:/D:/workspace/ExpenseManager/src/expensemanager/Payment.java</file>
+            <file>file:/D:/Github/ExpenseManager/test/expensemanager/AccountManagerImplTest.java</file>
         </group>
     </open-files>
 </project-private>
