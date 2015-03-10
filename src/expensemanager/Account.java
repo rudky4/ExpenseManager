@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 /**
  *
- * @author rkk
+ * @author rk
  */
 public class Account {
     
