@@ -16,3 +16,5 @@ hs_err_pid*
 /dist/
 *.properties
 nbproject/project.properties
+*.properties
+*.properties
