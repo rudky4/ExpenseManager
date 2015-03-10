@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.time.Month;
 
 /**
  *
@@ -33,7 +33,7 @@ public class AccountManagerImplTest {
 
     @Test
     public void testCreateAccount() {
-        Account account = newAccount("MyAccount","",new LocalDate(2015,2,25));
+        Account account = newAccount("MyAccount","",LocalDate.of(2014, Month.JANUARY, 1));
         manager.createAccount(account);
         
         Long accountId = account.getId();        
@@ -48,7 +48,7 @@ public class AccountManagerImplTest {
         
         assertNull(manager.getAccount(1l));
         
-        Account account = newAccount("MyAccount","",new LocalDate(2015,5,9));
+        Account account = newAccount("MyAccount","",LocalDate.of(2015,Month.JANUARY,9));
         manager.createAccount(account);
         Long accountId = account.getId();
 
@@ -58,8 +58,8 @@ public class AccountManagerImplTest {
     
     @Test
     public void updateGrave() {
-        Account account = newAccount("MyAccount","",new LocalDate(2015,5,9));
-        Account account2 = newAccount("MySecondAccount","Notew",new LocalDate(2013,5,9));
+        Account account = newAccount("MyAccount","",LocalDate.of(2015,Month.JANUARY,9));
+        Account account2 = newAccount("MySecondAccount","Notew",LocalDate.of(2013,Month.JANUARY,1));
         manager.createAccount(account);
         manager.createAccount(account2);
         Long accountId = account.getId();
