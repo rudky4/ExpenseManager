@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author rk
  */
-public class AccountManagerImpl implement AccountManager{
+public class AccountManagerImpl implements AccountManager{
     
     @Override
     public void createAccount(Account account) throws ServiceFailureException{
@@ -34,7 +34,7 @@ public class AccountManagerImpl implement AccountManager{
     }
     
     @Override
-    public List<Account> findAllGraves() throws ServiceFailureException{
+    public List<Account> findAllAccounts() throws ServiceFailureException{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
