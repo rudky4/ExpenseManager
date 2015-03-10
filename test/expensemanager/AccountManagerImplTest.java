@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -33,7 +33,7 @@ public class AccountManagerImplTest {
 
     @Test
     public void testCreateAccount() {
-        Account account = newAccount("MyAccount","",new Date(2015,2,25));
+        Account account = newAccount("MyAccount","",new LocalDate(2015,2,25));
         manager.createAccount(account);
         
         Long accountId = account.getId();        
@@ -48,7 +48,7 @@ public class AccountManagerImplTest {
         
         assertNull(manager.getAccount(1l));
         
-        Account account = newAccount("MyAccount","",new Date(2015,5,9));
+        Account account = newAccount("MyAccount","",new LocalDate(2015,5,9));
         manager.createAccount(account);
         Long accountId = account.getId();
 
@@ -58,21 +58,22 @@ public class AccountManagerImplTest {
     
     @Test
     public void updateGrave() {
-        Account account = newAccount("MyAccount","",new Date(2015,5,9));
-        Account account2 = newAccount("MySecondAccount","Notew",new Date(2013,5,9));
+        Account account = newAccount("MyAccount","",new LocalDate(2015,5,9));
+        Account account2 = newAccount("MySecondAccount","Notew",new LocalDate(2013,5,9));
         manager.createAccount(account);
         manager.createAccount(account2);
         Long accountId = account.getId();
 
         account = manager.getAccount(accountId);
         account.setDescription("newDesc");
+        //skontrolovat vsetky atributy
         manager.updateAccount(account);        
         assertEquals("newDesc", account.getDescription());
         assertEquals(accountId, account.getId());
         assertNotSame(account, account2);
     }
        
-    private static Account newAccount(String name, String description, Date creationDate) {
+    private static Account newAccount(String name, String description, LocalDate creationDate) {
         Account account = new Account();
         account.setName(name);
         account.setDescription(description);

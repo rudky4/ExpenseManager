@@ -1,7 +1,8 @@
 package expensemanager;
 
-import java.util.Date;
+
 import java.util.Objects;
+import java.time.LocalDate;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,8 +16,8 @@ import java.util.Objects;
 public class Account {
     
     Long id;
-    Date creationDate;
-    Date cancelDate;
+    LocalDate creationDate;
+    LocalDate cancelDate;
     String name;
     String description;
 
@@ -37,28 +38,28 @@ public class Account {
     /**
      * @return the creationDate
      */
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
     /**
      * @param creationDate the creationDate to set
      */
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
     /**
      * @return the cancelDate
      */
-    public Date getCancelDate() {
+    public LocalDate getCancelDate() {
         return cancelDate;
     }
 
     /**
      * @param cancelDate the cancelDate to set
      */
-    public void setCancelDate(Date cancelDate) {
+    public void setCancelDate(LocalDate cancelDate) {
         this.cancelDate = cancelDate;
     }
 
