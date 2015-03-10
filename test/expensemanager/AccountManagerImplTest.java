@@ -66,11 +66,10 @@ public class AccountManagerImplTest {
 
         account = manager.getAccount(accountId);
         account.setDescription("newDesc");
-        manager.updateGrave(account);        
-        assertEquals(0, grave.getColumn());
-        assertEquals(13, grave.getRow());
-        assertEquals(6, grave.getCapacity());
-        assertEquals("Nice grave", grave.getNote());
+        manager.updateAccount(account);        
+        assertEquals("newDesc", account.getDescription());
+        assertEquals(accountId, account.getId());
+        assertNotSame(account, account2);
     }
        
     private static Account newAccount(String name, String description, Date creationDate) {

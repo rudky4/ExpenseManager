@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="1" failures="0" hostname="rk-NB" name="expensemanager.AccountManagerImplTest" skipped="0" tests="1" time="0.106" timestamp="2015-03-09T20:20:22">
+<testsuite errors="3" failures="0" hostname="rk-NB" name="expensemanager.AccountManagerImplTest" skipped="0" tests="3" time="0.098" timestamp="2015-03-10T13:20:16">
   <properties>
     <property name="netbeans.autoupdate.country" value="SK" />
     <property name="nb.wait.for.caches" value="true" />
@@ -42,7 +42,7 @@
     <property name="user.name" value="rk" />
     <property name="copylibs.rebase" value="true" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner expensemanager.AccountManagerImplTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\workspace\ExpenseManager\build\test\results\TEST-expensemanager.AccountManagerImplTest.xml crashfile=D:\workspace\ExpenseManager\build\junitvmwatcher6249955106974096760.properties propsfile=D:\workspace\ExpenseManager\build\junit4285425884517192984.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner expensemanager.AccountManagerImplTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\workspace\ExpenseManager\build\test\results\TEST-expensemanager.AccountManagerImplTest.xml crashfile=D:\workspace\ExpenseManager\build\junitvmwatcher7510762236774160121.properties propsfile=D:\workspace\ExpenseManager\build\junit4629013230437469525.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -314,10 +314,22 @@
     <property name="platform.active" value="default_platform" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
   </properties>
-  <testcase classname="expensemanager.AccountManagerImplTest" name="testCreateAccount" time="0.009">
+  <testcase classname="expensemanager.AccountManagerImplTest" name="testCreateAccount" time="0.01">
     <error message="Not supported yet." type="java.lang.UnsupportedOperationException">java.lang.UnsupportedOperationException: Not supported yet.
 	at expensemanager.AccountManagerImpl.createAccount(AccountManagerImpl.java:18)
 	at expensemanager.AccountManagerImplTest.testCreateAccount(AccountManagerImplTest.java:37)
+</error>
+  </testcase>
+  <testcase classname="expensemanager.AccountManagerImplTest" name="getContact" time="0.001">
+    <error message="Not supported yet." type="java.lang.UnsupportedOperationException">java.lang.UnsupportedOperationException: Not supported yet.
+	at expensemanager.AccountManagerImpl.getAccount(AccountManagerImpl.java:33)
+	at expensemanager.AccountManagerImplTest.getContact(AccountManagerImplTest.java:49)
+</error>
+  </testcase>
+  <testcase classname="expensemanager.AccountManagerImplTest" name="updateGrave" time="0.001">
+    <error message="Not supported yet." type="java.lang.UnsupportedOperationException">java.lang.UnsupportedOperationException: Not supported yet.
+	at expensemanager.AccountManagerImpl.createAccount(AccountManagerImpl.java:18)
+	at expensemanager.AccountManagerImplTest.updateGrave(AccountManagerImplTest.java:63)
 </error>
   </testcase>
   <system-out><![CDATA[]]></system-out>
