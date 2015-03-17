@@ -71,7 +71,7 @@ public class PaymentManagerImplTest {
     }
     
     @Test
-    public void addContactWithWrongAttributes() {
+    public void addPaymentWithWrongAttributes() {
 
         try {
             manager.createPayment(null);
@@ -174,6 +174,68 @@ public class PaymentManagerImplTest {
         assertDeepEquals(p2, manager.findPaymentById(p2.getId()));
     }
     
+    @Test
+    public void updatePaymentWithWrongArguments(){
+        LocalDate date = LocalDate.of(2015,Month.MARCH,10);
+        Payment p1 = newPayment("Flowers",date,new BigDecimal(5.6));
+        manager.createPayment(p1);
+        Long paymentId = p1.getId();
+        
+        try {
+            manager.updatePayment(null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            //OK
+        }
+        
+        try {
+            p1 = manager.findPaymentById(paymentId);
+            p1.setId(null);
+            manager.updatePayment(p1);        
+            fail();
+        } catch (IllegalArgumentException ex) {
+            //OK
+        }
+        
+        try {
+            p1 = manager.findPaymentById(paymentId);
+            p1.setId(paymentId - 1);
+            manager.updatePayment(p1);        
+            fail();
+        } catch (IllegalArgumentException ex) {
+            //OK
+        }
+        
+        try {
+            p1 = manager.findPaymentById(paymentId);
+            p1.setAmount(new BigDecimal(-15.35));
+            manager.updatePayment(p1);        
+            fail();
+        } catch (IllegalArgumentException ex) {
+            //OK
+        }
+        
+        
+        try {
+            p1 = manager.findPaymentById(paymentId);
+            p1.setAmount(null);
+            manager.updatePayment(p1);        
+            fail();
+        } catch (IllegalArgumentException ex) {
+            //OK
+        }
+        
+        try {
+            p1 = manager.findPaymentById(paymentId);
+            p1.setDescription(null);
+            manager.updatePayment(p1);        
+            fail();
+        } catch (IllegalArgumentException ex) {
+            //OK
+        }
+            
+              
+    }
     
     private static Payment newPayment(String description, LocalDate date, BigDecimal amount) {
         Payment payment = new Payment();
