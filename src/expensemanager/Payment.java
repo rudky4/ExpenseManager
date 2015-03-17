@@ -1,7 +1,7 @@
 package expensemanager;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -12,7 +12,7 @@ public class Payment {
 
     private Long id;
     private String description;
-    private Date date;
+    private LocalDate date;
     private BigDecimal amount;
 
     public Long getId() {
@@ -31,11 +31,11 @@ public class Payment {
         this.description = description;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -12,7 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,17 +36,8 @@ public class PaymentManagerImplTest {
     @Test
     public void testCreatePayment() {
         System.out.println("createPayment");
-        SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd"); 
-        String date = "2015-03-09";
         
-        Date newDate = null;
-        try{
-            newDate = dateFormat.parse(date);
-        }catch (ParseException e) { 
-            System.out.println("Unparseable using " + dateFormat); 
-        }
-        
-        Payment payment = newPayment("Running shoes Nike",newDate,new BigDecimal(130));
+        Payment payment = newPayment("Running shoes Nike",LocalDate.of(2015,Month.MARCH,6),new BigDecimal(130));
         manager.createPayment(payment);
         
         Long paymentId = payment.getId();
@@ -61,24 +53,9 @@ public class PaymentManagerImplTest {
     public void getAllContacts() {
 
         assertTrue(manager.findAllPayments().isEmpty());
-
         
-        SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd"); 
-        String date_1 = "2015-03-05";
-        String date_2 = "2015-03-06";
-        
-        Date newDate_1 = null;
-        Date newDate_2 = null;
-        try{
-            newDate_1 = dateFormat.parse(date_1);
-            newDate_2 = dateFormat.parse(date_2);
-        }catch (ParseException e) { 
-            System.out.println("Unparseable using " + dateFormat); 
-        }
-        
-        
-        Payment g1 = newPayment("Payment 1",newDate_1,new BigDecimal(55.24));
-        Payment g2 = newPayment("Payment 2",newDate_2,new BigDecimal(61.15));
+        Payment g1 = newPayment("Payment 1",LocalDate.of(2015,Month.JANUARY,12),new BigDecimal(55.24));
+        Payment g2 = newPayment("Payment 2",LocalDate.of(2015,Month.FEBRUARY,10),new BigDecimal(61.15));
 
         manager.createPayment(g1);
         manager.createPayment(g2);
@@ -102,18 +79,10 @@ public class PaymentManagerImplTest {
         } catch (IllegalArgumentException ex) {
             //OK
         }
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd"); 
-        String date = "2015-03-09";
         
-        Date newDate = null;
-        try{
-            newDate = dateFormat.parse(date);
-        }catch (ParseException e) { 
-            System.out.println("Unparseable using " + dateFormat); 
-        }
+        LocalDate date = LocalDate.of(2015,Month.MARCH,10);
         
-        Payment payment = newPayment("Running shoes Nike",newDate,new BigDecimal(130));
+        Payment payment = newPayment("Running shoes Nike",date,new BigDecimal(130));
         payment.setId(1l);
         try {
             manager.createPayment(payment);
@@ -122,7 +91,7 @@ public class PaymentManagerImplTest {
             //OK
         }
 
-        payment = newPayment("Electricity bill",newDate,null); 
+        payment = newPayment("Electricity bill",date,null); 
         try {
             manager.createPayment(payment);
             fail();
@@ -130,7 +99,7 @@ public class PaymentManagerImplTest {
             //OK
         }
         
-        payment = newPayment("Denim Jacket",newDate,new BigDecimal(-20.35)); 
+        payment = newPayment("Denim Jacket",date,new BigDecimal(-20.35)); 
         try {
             manager.createPayment(payment);
             fail();
@@ -146,7 +115,7 @@ public class PaymentManagerImplTest {
             //OK
         }
 
-        payment = newPayment(null,newDate,new BigDecimal(10.00));
+        payment = newPayment(null,date,new BigDecimal(10.00));
         try {
             manager.createPayment(payment);
             fail();
@@ -154,14 +123,9 @@ public class PaymentManagerImplTest {
             //OK
         }
         
+        date = LocalDate.of(2016,Month.MARCH,10);
         
-        try{
-            newDate = dateFormat.parse("2016-01-01");
-        }catch (ParseException e) { 
-            System.out.println("Unparseable using " + dateFormat); 
-        }
-        
-        payment = newPayment("Waste fee",newDate,new BigDecimal(40.25));
+        payment = newPayment("Waste fee",date,new BigDecimal(40.25));
         try {
             manager.createPayment(payment);
             fail();
@@ -173,17 +137,11 @@ public class PaymentManagerImplTest {
     
     @Test
     public void updatePayment() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd"); 
-        String date = "2015-03-10";
-        Date newDate = null;
-        try{
-            newDate = dateFormat.parse(date);
-        }catch (ParseException e) { 
-            System.out.println("Unparseable using " + dateFormat); 
-        }
         
-        Payment p1 = newPayment("Flowers",newDate,new BigDecimal(5.6));
-        Payment p2 = newPayment("Chocolate",newDate,new BigDecimal(4.7));
+        LocalDate date = LocalDate.of(2015,Month.MARCH,10);
+        
+        Payment p1 = newPayment("Flowers",date,new BigDecimal(5.6));
+        Payment p2 = newPayment("Chocolate",date,new BigDecimal(4.7));
         manager.createPayment(p1);
         manager.createPayment(p2);
         Long paymentId = p1.getId();
@@ -193,26 +151,23 @@ public class PaymentManagerImplTest {
         manager.updatePayment(p1);        
         assertEquals(new BigDecimal(6.5), p1.getAmount());
         assertEquals("Flowers", p1.getDescription());
-        assertEquals(newDate, p1.getDate());
+        assertEquals(date, p1.getDate());
 
         p1 = manager.findPaymentById(paymentId);
-        try{
-            newDate = dateFormat.parse("2015-02-15");
-        }catch (ParseException e) { 
-            System.out.println("Unparseable using " + dateFormat); 
-        }
-        p1.setDate(newDate);
+        
+        date = LocalDate.of(2015,Month.JANUARY,10);
+        p1.setDate(date);
         manager.updatePayment(p1);        
         assertEquals(new BigDecimal(6.5), p1.getAmount());
         assertEquals("Flowers", p1.getDescription());
-        assertEquals(newDate, p1.getDate());
+        assertEquals(date, p1.getDate());
 
         p1 = manager.findPaymentById(paymentId);
         p1.setDescription("Magazines");
         manager.updatePayment(p1);        
         assertEquals(new BigDecimal(6.5), p1.getAmount());
         assertEquals("Magazines", p1.getDescription());
-        assertEquals(newDate, p1.getDate());
+        assertEquals(date, p1.getDate());
 
 
         // Check if updates didn't affected other records
@@ -220,7 +175,7 @@ public class PaymentManagerImplTest {
     }
     
     
-    private static Payment newPayment(String description, Date date, BigDecimal amount) {
+    private static Payment newPayment(String description, LocalDate date, BigDecimal amount) {
         Payment payment = new Payment();
         payment.setDescription(description);
         payment.setDate(date);
