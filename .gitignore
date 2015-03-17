@@ -21,3 +21,4 @@ nbproject/project.properties
 *.properties
 build/classes/.netbeans_update_resources
 nbproject/private/private.properties
+*.xml

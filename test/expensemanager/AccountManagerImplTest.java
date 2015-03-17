@@ -56,7 +56,7 @@ public class AccountManagerImplTest {
     }
 
     @Test
-    public void updateGrave() {
+    public void testUpdateAccount() {
         Account account = newAccount("MyAccount", "", LocalDate.of(2015, Month.JANUARY, 9));
         Account account2 = newAccount("MySecondAccount", "Note", LocalDate.of(2013, Month.JANUARY, 1));
         manager.createAccount(account);
@@ -81,12 +81,29 @@ public class AccountManagerImplTest {
                 
         assertNotSame(account, account2);
     }
-/*
-        @Test
-    public void deleteGrave(){
+
+    @Test
+    public void testDeleteAccount(){
+        Account account = newAccount("Acc1", "", LocalDate.of(2014, Month.JUNE, 9));
+        Account account2 = newAccount("Acc2", "Note", LocalDate.of(2013, Month.DECEMBER, 1));
+        manager.createAccount(account);
+        manager.createAccount(account2);
+    
+        Long accountId = account.getId();
+        Long account2Id = account2.getId();
         
+        manager.deleteAccount(account);
+        
+        try {
+            manager.getAccount(accountId);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            //OK
+        }
+        
+        assertEquals(account2Id, manager.getAccount(account2Id).getId());               
     }
- */   
+   
     
     //help method to create object with pre-setted atributes
     private static Account newAccount(String name, String description, LocalDate creationDate) {
