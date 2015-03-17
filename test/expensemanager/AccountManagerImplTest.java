@@ -23,7 +23,7 @@ import java.time.Month;
  * @author rk
  */
 public class AccountManagerImplTest {
-    
+
     private AccountManagerImpl manager;
 
     @Before
@@ -33,46 +33,62 @@ public class AccountManagerImplTest {
 
     @Test
     public void testCreateAccount() {
-        Account account = newAccount("MyAccount","",LocalDate.of(2014, Month.JANUARY, 1));
+        Account account = newAccount("MyAccount", "", LocalDate.of(2014, Month.JANUARY, 1));
         manager.createAccount(account);
-        
-        Long accountId = account.getId();        
-        assertNotNull(accountId);        
+
+        Long accountId = account.getId();
+        assertNotNull(accountId);
         Account result = manager.getAccount(accountId);
         assertEquals(account, result);
-        assertNotSame(account, result);        
+        assertNotSame(account, result);
     }
-    
+
     @Test
-    public void getContact() {
-        
-        assertNull(manager.getAccount(1l));
-        
-        Account account = newAccount("MyAccount","",LocalDate.of(2015,Month.JANUARY,9));
+    public void testGetAccount() {
+        assertNull(manager.getAccount(1L));
+
+        Account account = newAccount("MyAccount", "", LocalDate.of(2015, Month.JANUARY, 9));
         manager.createAccount(account);
         Long accountId = account.getId();
 
         Account result = manager.getAccount(accountId);
         assertEquals(account, result);
     }
-    
+
     @Test
     public void updateGrave() {
-        Account account = newAccount("MyAccount","",LocalDate.of(2015,Month.JANUARY,9));
-        Account account2 = newAccount("MySecondAccount","Notew",LocalDate.of(2013,Month.JANUARY,1));
+        Account account = newAccount("MyAccount", "", LocalDate.of(2015, Month.JANUARY, 9));
+        Account account2 = newAccount("MySecondAccount", "Note", LocalDate.of(2013, Month.JANUARY, 1));
         manager.createAccount(account);
         manager.createAccount(account2);
+        
         Long accountId = account.getId();
-
+        Long account2Id = account2.getId();
+        
         account = manager.getAccount(accountId);
         account.setDescription("newDesc");
-        //skontrolovat vsetky atributy
-        manager.updateAccount(account);        
-        assertEquals("newDesc", account.getDescription());
-        assertEquals(accountId, account.getId());
+        manager.updateAccount(account);
+        
+        assertEquals("MyAccount", manager.getAccount(accountId).getName());
+        assertEquals("newDesc", manager.getAccount(accountId).getDescription());
+        assertEquals(accountId, manager.getAccount(accountId).getId());
+        assertEquals(LocalDate.of(2015, Month.JANUARY, 9), manager.getAccount(accountId).getCreationDate());
+        
+        assertEquals("MySecondAccount", manager.getAccount(account2Id).getName());
+        assertEquals("Note", manager.getAccount(account2Id).getDescription());
+        assertEquals(account2Id, manager.getAccount(account2Id).getId());
+        assertEquals(LocalDate.of(2013, Month.JANUARY, 1), manager.getAccount(account2Id).getCreationDate());
+                
         assertNotSame(account, account2);
     }
-       
+/*
+        @Test
+    public void deleteGrave(){
+        
+    }
+ */   
+    
+    //help method to create object with pre-setted atributes
     private static Account newAccount(String name, String description, LocalDate creationDate) {
         Account account = new Account();
         account.setName(name);
@@ -80,13 +96,4 @@ public class AccountManagerImplTest {
         account.setCreationDate(creationDate);
         return account;
     }
-    
-    private static Comparator<Account> idComparator = new Comparator<Account>() {
-
-        @Override
-        public int compare(Account o1, Account o2) {
-            return Long.valueOf(o1.getId()).compareTo(Long.valueOf(o2.getId()));
-        }
-    };
-    
 }
