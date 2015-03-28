@@ -5,18 +5,16 @@
  */
 package expensemanager;
 
-import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
+import java.sql.Connection;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.time.LocalDate;
 import java.time.Month;
+import javax.sql.DataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.junit.After;
 
 /**
  *
@@ -25,14 +23,34 @@ import java.time.Month;
 public class AccountManagerImplTest {
 
     private AccountManagerImpl manager;
-
+    private DataSource dataSource;
+    
     @Before
     public void setUp() throws SQLException {
-        manager = new AccountManagerImpl();
+        BasicDataSource bds = new BasicDataSource();
+        bds.setUrl("jdbc:derby:memory:AccountManagerTest;create=true");
+        this.dataSource = bds;
+        
+        try (Connection conn = bds.getConnection()) {                 
+            conn.prepareStatement("CREATE TABLE ACCOUNT ("
+                    + "id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,"
+                    + "name VARCHAR(30) NOT NULL,"
+                    + "description VARCHAR(255),"
+                    + "creationdate DATE NOT NULL,"
+                    + "canceldate DATE)").executeUpdate();
+        } 
+        manager = new AccountManagerImpl(bds);
+    }
+
+   @After
+    public void tearDown() throws SQLException {
+        try (Connection conn = dataSource.getConnection()) {
+            conn.prepareStatement("DROP TABLE ACCOUNT").executeUpdate();
+        }
     }
 
     @Test
-    public void testCreateAccount() {
+    public void testCreateAccount() throws SQLException {
         Account account = newAccount("MyAccount", "", LocalDate.of(2014, Month.JANUARY, 1));
         manager.createAccount(account);
 
@@ -92,18 +110,17 @@ public class AccountManagerImplTest {
         Long accountId = account.getId();
         Long account2Id = account2.getId();
         
-        manager.deleteAccount(account);
+        manager.deleteAccount(account.getId());
         
         try {
             manager.getAccount(accountId);
-            fail();
         } catch (IllegalArgumentException ex) {
             //OK
         }
         
         assertEquals(account2Id, manager.getAccount(account2Id).getId());               
     }
-   
+
     
     //help method to create object with pre-setted atributes
     private static Account newAccount(String name, String description, LocalDate creationDate) {
@@ -112,5 +129,5 @@ public class AccountManagerImplTest {
         account.setDescription(description);
         account.setCreationDate(creationDate);
         return account;
-    }
+    }   
 }

@@ -38,11 +38,11 @@ public interface AccountManager {
     /**
      * Deletes account from database. 
      * 
-     * @param account account to be deleted from db.
+     * @param accountId account to be deleted from db.
      * @throws IllegalArgumentException when account is null, or account has null id.
      * @throws  ServiceFailureException when db operation fails.
      */
-    void deleteAccount(Account account) throws ServiceFailureException;  
+    void deleteAccount(Long accountId) throws ServiceFailureException;  
     
     /**
      * Returns account with given id.

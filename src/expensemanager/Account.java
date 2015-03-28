@@ -15,11 +15,11 @@ import java.time.LocalDate;
  */
 public class Account {
     
-    Long id;
-    LocalDate creationDate;
-    LocalDate cancelDate;
-    String name;
-    String description;
+    private Long id;
+    private LocalDate creationDate;
+    private LocalDate cancelDate;
+    private String name;
+    private String description;
 
     /**
      * @return the id
@@ -118,6 +118,7 @@ public class Account {
         return "Account{" + "id=" + id + ", name=" + name + '}';
     }
     
+ 
      
     
     
