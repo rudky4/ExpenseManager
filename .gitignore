@@ -12,13 +12,3 @@ $GIT_DIR/ExpenseManager/
 *.properties
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-/dist/
-*.properties
-nbproject/project.properties
-*.properties
-*.properties
-*.properties
-build/classes/.netbeans_update_resources
-nbproject/private/private.properties
-*.xml
