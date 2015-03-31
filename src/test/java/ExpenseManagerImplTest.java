@@ -154,6 +154,8 @@ public class ExpenseManagerImplTest {
         count = count.add(payment2.getAmount());
         count = count.add(payment3.getAmount());
         
+        
+        //System.out.println('');
         assertEquals(expenseManager.getAccountBalance(account), count);
     }
     
