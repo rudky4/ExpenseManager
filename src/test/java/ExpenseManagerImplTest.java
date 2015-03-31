@@ -37,6 +37,7 @@ public class ExpenseManagerImplTest {
     
     private DataSource dataSource;
     
+    
     private static DataSource prepareDataSource() throws SQLException {
         BasicDataSource ds = new BasicDataSource();
         //we will use in memory database
@@ -102,6 +103,85 @@ public class ExpenseManagerImplTest {
         
         assertEquals(payment, payment2);
     }
+    
+    @Test
+    public void testRemovePaymentToAccount() throws SQLException {
+        Account account = newAccount("MyAccount", "", LocalDate.of(2015, Month.JANUARY, 1));
+        accountManager.createAccount(account);
+        
+        Payment payment = newPayment("Running shoes Nike",LocalDate.of(2015,Month.MARCH,8),new BigDecimal("-139.99"));
+        paymentManager.createPayment(payment);
+        
+        Payment payment2 = newPayment("Sold Running shoes Adidas",null,new BigDecimal("29.99"));
+        paymentManager.createPayment(payment2);
+        
+        expenseManager.addPaymentToAccount(payment, account);
+        expenseManager.addPaymentToAccount(payment2, account);
+        
+        List<Payment> result = new ArrayList<Payment>();
+        result = expenseManager.getAllPaymentsInAccount(account);
+        assertEquals(result.size(), 2);
+        
+        expenseManager.removePaymentFromAccount(payment, account);
+        result = expenseManager.getAllPaymentsInAccount(account);
+        assertEquals(result.size(), 1);
+        
+        Payment payment3 = result.get(0);
+        
+        assertEquals(payment2, payment3);
+        paymentManager.deletePayment(payment);
+    }
+    
+    @Test
+    public void testGetAccountBalance() throws SQLException {
+        Account account = newAccount("MyAccount", "", LocalDate.of(2015, Month.JANUARY, 1));
+        accountManager.createAccount(account);
+        
+        Payment payment = newPayment("Running shoes Nike",LocalDate.of(2015,Month.MARCH,8),new BigDecimal("-139.99"));
+        paymentManager.createPayment(payment);
+        
+        Payment payment2 = newPayment("Sold Running shoes Adidas",null,new BigDecimal("29.99"));
+        paymentManager.createPayment(payment2);
+        
+        Payment payment3 = newPayment("Found",LocalDate.of(2015,Month.MAY,8),new BigDecimal("0.01"));
+        paymentManager.createPayment(payment3);
+        
+        expenseManager.addPaymentToAccount(payment, account);
+        expenseManager.addPaymentToAccount(payment2, account);
+        expenseManager.addPaymentToAccount(payment3, account);
+         
+        BigDecimal count = payment.getAmount();
+        count = count.add(payment2.getAmount());
+        count = count.add(payment3.getAmount());
+        
+        assertEquals(expenseManager.getAccountBalance(account), count);
+    }
+    
+        @Test
+    public void testGetAccountBalanceForPeriod() throws SQLException {
+        Account account = newAccount("MyAccount", "", LocalDate.of(2015, Month.JANUARY, 1));
+        accountManager.createAccount(account);
+        
+        Payment payment = newPayment("Running shoes Nike",LocalDate.of(2015,Month.MARCH,8),new BigDecimal("-139.99"));
+        paymentManager.createPayment(payment);
+        
+        Payment payment2 = newPayment("Sold Running shoes Adidas",LocalDate.of(2015,Month.MARCH,5),new BigDecimal("29.99"));
+        paymentManager.createPayment(payment2);
+        
+        Payment payment3 = newPayment("Found",LocalDate.of(2015,Month.MAY,10),new BigDecimal("0.02"));
+        paymentManager.createPayment(payment3);
+        
+        expenseManager.addPaymentToAccount(payment, account);
+        expenseManager.addPaymentToAccount(payment2, account);
+        expenseManager.addPaymentToAccount(payment3, account);
+         
+        BigDecimal count = payment.getAmount();
+        count = count.add(payment3.getAmount());
+        
+        assertEquals(expenseManager.getAccountBalanceForPeriod(account,LocalDate.of(2015,Month.MARCH,7),LocalDate.of(2015,Month.MAY,10)), count);
+    }
+    
+    
 
     //help method to create object with pre-setted atributes
     private static Account newAccount(String name, String description, LocalDate creationDate) {

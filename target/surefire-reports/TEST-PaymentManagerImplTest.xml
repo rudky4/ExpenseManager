@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="PaymentManagerImplTest" time="0.327" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="PaymentManagerImplTest" time="0.354" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_25\jre\bin"/>
@@ -14,6 +14,7 @@
     <property name="user.country" value="SK"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="Service Pack 1"/>
+    <property name="test" value="*Test"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="D:\workspace\ExpenseManager"/>
     <property name="java.runtime.version" value="1.8.0_25-b18"/>
@@ -44,7 +45,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="32"/>
     <property name="java.home" value="C:\Program Files (x86)\Java\jdk1.8.0_25\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Program Files (x86)\NetBeans 8.0.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 clean install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=*Test -Dmaven.ext.class.path=C:\Program Files (x86)\NetBeans 8.0.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="sk"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -61,10 +62,10 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase classname="PaymentManagerImplTest" name="testCreatePayment" time="0.183"/>
+  <testcase classname="PaymentManagerImplTest" name="testCreatePayment" time="0.178"/>
   <testcase classname="PaymentManagerImplTest" name="testGetPayment" time="0.025"/>
-  <testcase classname="PaymentManagerImplTest" name="updatePaymentWithWrongArguments" time="0.031"/>
-  <testcase classname="PaymentManagerImplTest" name="testDeleteBody" time="0.036"/>
-  <testcase classname="PaymentManagerImplTest" name="createPaymentWithWrongAttributes" time="0.014"/>
+  <testcase classname="PaymentManagerImplTest" name="updatePaymentWithWrongArguments" time="0.026"/>
+  <testcase classname="PaymentManagerImplTest" name="testDeleteBody" time="0.076"/>
+  <testcase classname="PaymentManagerImplTest" name="createPaymentWithWrongAttributes" time="0.012"/>
   <testcase classname="PaymentManagerImplTest" name="updatePayment" time="0.032"/>
 </testsuite>
