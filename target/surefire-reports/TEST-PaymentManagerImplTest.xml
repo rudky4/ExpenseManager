@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="PaymentManagerImplTest" time="0.306" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="PaymentManagerImplTest" time="0.354" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_25\jre\bin"/>
@@ -62,10 +62,10 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase classname="PaymentManagerImplTest" name="testCreatePayment" time="0.15"/>
-  <testcase classname="PaymentManagerImplTest" name="testGetPayment" time="0.02"/>
-  <testcase classname="PaymentManagerImplTest" name="updatePaymentWithWrongArguments" time="0.022"/>
-  <testcase classname="PaymentManagerImplTest" name="testDeleteBody" time="0.069"/>
+  <testcase classname="PaymentManagerImplTest" name="testCreatePayment" time="0.178"/>
+  <testcase classname="PaymentManagerImplTest" name="testGetPayment" time="0.025"/>
+  <testcase classname="PaymentManagerImplTest" name="updatePaymentWithWrongArguments" time="0.026"/>
+  <testcase classname="PaymentManagerImplTest" name="testDeleteBody" time="0.076"/>
   <testcase classname="PaymentManagerImplTest" name="createPaymentWithWrongAttributes" time="0.012"/>
-  <testcase classname="PaymentManagerImplTest" name="updatePayment" time="0.029"/>
+  <testcase classname="PaymentManagerImplTest" name="updatePayment" time="0.032"/>
 </testsuite>

@@ -207,19 +207,20 @@ public class ExpenseManagerImpl implements ExpenseManager {
         }                            
         Connection conn = null;
         PreparedStatement st = null;
-        try {            
-	    conn = dataSource.getConnection();
+        try {
+            conn = dataSource.getConnection();
             checkSt = conn.prepareStatement(
-                    "SELECT SUM(AMOUNT) AS ACCOUNTBALANCE FROM PAYMENT WHERE ACCOUNTID = ?");
+                    "SELECT AMOUNT FROM PAYMENT WHERE PAYMENT.ACCOUNTID = ?");
             checkSt.setLong(1, account.getId());
             ResultSet rs = checkSt.executeQuery();
-            if (rs.next()) {
-                result = rs.getBigDecimal("accountbalance");
+            
+            while (rs.next()) {
+                result = result.add(rs.getBigDecimal("amount"));
             }
         } catch (SQLException ex) {
-            String msg = "Error when calculating total amount.";
+            String msg = "Error when calculating total amount";
             logger.log(Level.SEVERE, msg, ex);
-            throw new ServiceFailureException(msg, ex);               
+            throw new ServiceFailureException(msg, ex);              
         } finally {
             DBUtils.closeQuietly(null, checkSt);
         }
@@ -241,18 +242,18 @@ public class ExpenseManagerImpl implements ExpenseManager {
         }                            
         Connection conn = null;
         PreparedStatement st = null;
-       try {
+        try {
             conn = dataSource.getConnection();
             checkSt = conn.prepareStatement(
-                    "SELECT SUM(PAYMENT.AMOUNT) AS ACCOUNTBALANCE " +
-                    "FROM PAYMENT WHERE PAYMENT.ACCOUNTID = ? " +
+                    "SELECT AMOUNT FROM PAYMENT WHERE PAYMENT.ACCOUNTID = ? " +
                     "AND PAYMENT.DATE >= ? AND PAYMENT.DATE <= ?");
             checkSt.setLong(1, account.getId());
             checkSt.setDate(2, java.sql.Date.valueOf(from));
             checkSt.setDate(3, java.sql.Date.valueOf(to));
             ResultSet rs = checkSt.executeQuery();
-            if (rs.next()) {
-                result = rs.getBigDecimal("accountbalance");
+            
+            while (rs.next()) {
+                result = result.add(rs.getBigDecimal("amount"));
             }
             
         } catch (SQLException ex) {
