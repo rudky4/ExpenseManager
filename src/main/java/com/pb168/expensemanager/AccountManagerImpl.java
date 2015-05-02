@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
@@ -49,18 +50,18 @@ public class AccountManagerImpl implements AccountManager{
                     Statement.RETURN_GENERATED_KEYS)) {
                 st.setString(1, account.getName() );
                 st.setString(2, account.getDescription());
+                if(account.getCreationDate() != null){
                 st.setDate(3, java.sql.Date.valueOf(account.getCreationDate()));
-           
-                st.executeUpdate();
-                
-                int addedRows = st.executeUpdate();
-                if (addedRows != 1) {
-                    throw new ServiceFailureException("Internal Error: More rows inserted when trying to insert account " + account);
+                } else{ 
+                st.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
                 }
-                ResultSet keyRS = st.getGeneratedKeys();
-                account.setId(getKey(keyRS, account));        
-            }
-            
+                
+                st.executeUpdate();
+                ResultSet keys= st.getGeneratedKeys();
+                if (keys.next()) {
+                    account.setId(keys.getLong(1));
+                }        
+            }            
         } catch (SQLException ex) {
             log.error("cannot insert account", ex);
             throw new ServiceFailureException("database insert failed", ex);

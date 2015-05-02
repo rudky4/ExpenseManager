@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +32,6 @@ public class PaymentManagerImpl implements PaymentManager{
 
     @Override
     public void createPayment(Payment payment) throws ServiceFailureException {
-        log.debug("createPayment({})",payment);
         validate(payment);
         if(payment.getId() != null) throw new IllegalArgumentException("payment id is already set");
         
@@ -47,22 +45,17 @@ public class PaymentManagerImpl implements PaymentManager{
                     st.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
                 }
                 st.setBigDecimal(3, payment.getAmount());
-           
                 st.executeUpdate();
-                
-                int addedRows = st.executeUpdate();
-                if (addedRows != 1) {
-                    throw new ServiceFailureException("Internal Error: More rows inserted when trying to insert payment " + payment);
-                }
-                ResultSet keyRS = st.getGeneratedKeys();
-                payment.setId(getKey(keyRS, payment));        
+                ResultSet keys= st.getGeneratedKeys();
+                if (keys.next()) {
+                    payment.setId(keys.getLong(1));
+                }        
             }
             
         } catch (SQLException ex) {
             log.error("cannot insert payment", ex);
             throw new ServiceFailureException("database insert failed", ex);
-        }
-             
+        }       
     }
 
     @Override
@@ -200,6 +193,5 @@ public class PaymentManagerImpl implements PaymentManager{
         }
         return result;
     }
-    
     
 }
